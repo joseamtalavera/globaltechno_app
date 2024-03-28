@@ -1,0 +1,62 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies (use npm install for potential consistency)
+      run: |
+        cd client
+        npm install
+    - name: Build client
+      run: cd client && npm run build --if-present
+
+    - name: Test client
+      run: cd client && npm test
+
+    - name: Install server dependencies (use npm install for potential consistency)
+      run: |
+        cd server
+        npm install
+    - name: Build server
+      run: cd server && npm run build --if-present
+
+    - name: Test server
+      run: cd server && npm test
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Install zip
+      run: sudo apt-get install zip
+
+    - name: Package application
+      run: |
+        zip -r globaltechno.zip Procfile client server -x "*.git*"
+    - name: Deploy to Elastic Beanstalk
+      uses: einaregilsson/beanstalk-deploy@v21
+      with:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        application_name: globaltechno_app
+        environment_name: Globaltechnoapp-env-2
+        version_label: Sample  
+        region: eu-north-1
+        deployment_package: globaltechno.zip
