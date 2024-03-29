@@ -11,8 +11,8 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, '../client/build')));
 
-//const port = process.env.PORT || 5006;
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 5006;
+
 
 const allowedOrigins = ['http://localhost:3004', 'https://globaltechno-app.onrender.com'];
 
