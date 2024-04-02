@@ -49,14 +49,14 @@ jobs:
 
     - name: Package application
       run: |
-        zip -r globaltechno.zip Procfile client server -x "*.git*"
+        zip -r globaltechno.zip client server -x "*.git*"
     - name: Deploy to Elastic Beanstalk
       uses: einaregilsson/beanstalk-deploy@v21
       with:
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        application_name: globaltechno_cli
-        environment_name: globaltechnoclienv
+        application_name: globalapp
+        environment_name: globalapp-env
         version_label: Sample  
         region: eu-north-1
         deployment_package: globaltechno.zip

@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "NODE_ENV=production node server/server.js",
+    "start:server": "NODE_ENV=production node server/server.js",
     "dev": "NODE_ENV=development nodemon server/server.js",
     "test": "echo \"Error: no test specified\""
   },

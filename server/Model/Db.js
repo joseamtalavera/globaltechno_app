@@ -46,7 +46,7 @@ if (isProduction) {
         database: process.env.AWS_DATABASE,
         user: process.env.AWS_USER,
         password: process.env.AWS_PASSWORD,
-        ssl: process.env.AWS_SSL,
+        
     };
     console.log('Production DATABASE_URL:', process.env.DATABASE_URL);
 } else {
@@ -63,6 +63,19 @@ if (isProduction) {
 }
 console.log("poolConfig:", poolConfig);
 const pool = new Pool(poolConfig);
+
+const createTableQuery = `
+    CREATE TABLE IF NOT EXISTS emails (
+        id SERIAL PRIMARY KEY,
+        email VARCHAR(255) NOT NULL UNIQUE,
+        registered_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    );
+`;
+
+// Execute the create table query
+pool.query(createTableQuery)
+    .then(() => console.log('Table created successfully'))
+    .catch(error => console.error('Error creating table:', error));
 
 /* const email = 'test@example.com'; // replace with the email you want to insert
 
