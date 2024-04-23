@@ -46,11 +46,14 @@ if (isProduction) {
         database: process.env.AWS_DATABASE,
         user: process.env.AWS_USER,
         password: process.env.AWS_PASSWORD,
-        ssl: process.env.AWS_SSL,
+        ssl: {
+        rejectUnauthorized: false
+    },
     };
     console.log('Production DATABASE_URL:', process.env.DATABASE_URL);
 } else {
     // For local development, use individual environment variables
+
     poolConfig = {
         host: process.env.DB_HOST,
         port: process.env.DB_PORT,
@@ -64,14 +67,14 @@ if (isProduction) {
 console.log("poolConfig:", poolConfig);
 const pool = new Pool(poolConfig);
 
-/* const email = 'test@example.com'; // replace with the email you want to insert
+// const email = 'test@example.com'; // replace with the email you want to insert
 
-pool.query('INSERT INTO emails(email) VALUES($1) RETURNING *', [email], (err, res) => {
-    if (err) {
-        console.error('Error executing query', err.stack);
-    } else {
-        console.log('Email inserted successfully');
-    }
-}); */
+//pool.query('INSERT INTO emails(email) VALUES($1) RETURNING *', [email], (err, res) => {
+   // if (err) {
+       // console.error('Error executing query', err.stack);
+   // } else {
+       // console.log('Email inserted successfully');
+   // }
+//});
 
 module.exports = pool;
