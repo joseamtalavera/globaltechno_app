@@ -29,9 +29,6 @@ jobs:
         - name: Run client tests
           run: cd client && npm test
 
-        - name: Build server
-          run: cd server && npm run build
-
         - name: Build client
           run: cd client && npm run build
 
@@ -42,7 +39,7 @@ jobs:
             username: ${{ secrets.EC2_USERNAME }}
             key: ${{ secrets.EC2_SSH_KEY }}
             script: |
-              cd /path/to/your/app
+              cd ~/globaltechno_app/
               git pull
               cd server && npm ci --production
               cd ../client && npm ci --production
