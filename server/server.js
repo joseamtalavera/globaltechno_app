@@ -12,7 +12,8 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 
 const port = process.env.PORT || 5006;
 
-const allowedOrigins = ['http://localhost:3004', 'https://globaltechno-app.onrender.com'];
+
+const allowedOrigins = ['http://localhost:3004', 'https://globaltechno-app.onrender.com','https://app.globaltechno.io'];
 
 app.use(cors({
   origin(origin, callback) {
@@ -42,5 +43,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on Port ${port}`);
-});
+    console.log(`Server is running on Port ${port}`);
+  });
