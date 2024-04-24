@@ -44,3 +44,7 @@ jobs:
               cd server && npm ci --production
               cd ../client && npm ci --production
               pm2 restart all
+          env: 
+            EC2_HOST: ${{ secrets.EC2_HOST }}
+            EC2_USERNAME: ${{ secrets.EC2_USERNAME }}
+            EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
