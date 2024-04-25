@@ -39,7 +39,7 @@ jobs:
             username: ${{ secrets.EC2_USERNAME }}
             key: ${{ secrets.EC2_SSH_KEY }}
             script: |
-              source ~/.bashrc
+              source ~/.nvm/nvm.sh
               cd ~/globaltechno_app/
               git pull
               cd server && /home/ubuntu/.nvm/versions/node/v21.7.3/bin/npm ci --production
