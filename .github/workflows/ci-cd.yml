@@ -32,6 +32,12 @@ jobs:
         - name: Build client
           run: cd client && npm run build
 
+        - name: Add private key to SSH agent
+          run: |
+            eval $(ssh-agent -s)
+            ssh-add /Users/josemolinatalavera/Coding/Coding_Projects/ssh/gloaltechno-key-perm.pem  
+            ssh-add -l  
+
         - name: Deploy to EC2
           uses: appleboy/ssh-action@master
           with:
