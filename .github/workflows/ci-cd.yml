@@ -42,7 +42,7 @@ jobs:
               source ~/.bashrc
               cd ~/globaltechno_app/
               git pull
-              cd server && npm ci --production
-              cd ../client && npm ci --production
-              pm2 restart all
+              cd server && /home/ubuntu/.nvm/versions/node/v21.7.3/bin/npm ci --production
+              cd ../client && /home/ubuntu/.nvm/versions/node/v21.7.3/bin/npm ci --production
+              /home/ubuntu/.nvm/versions/node/v21.7.3/bin/pm2 restart all
           
