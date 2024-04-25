@@ -39,6 +39,7 @@ jobs:
             username: ${{ secrets.EC2_USERNAME }}
             key: ${{ secrets.EC2_SSH_KEY }}
             script: |
+              source ~/.bashrc
               cd ~/globaltechno_app/
               git pull
               cd server && npm ci --production
