@@ -46,18 +46,5 @@ jobs:
               cd ../client && /home/ubuntu/.nvm/versions/node/v21.7.3/bin/npm ci --production
               /home/ubuntu/.nvm/versions/node/v21.7.3/bin/pm2 restart all
 
-        - name: Debug information
-          run: |
-            echo "Node.js version:"
-            node -v
-            echo "npm version:"
-            npm -v
-            echo "Operating system:"
-            uname -a
-            echo "package.json:"
-            cat server/package.json
-            echo "package-lock.json:"
-            cat server/package-lock.json
-            echo "List of global npm packages:"
-            npm list -g --depth=0
+       
           
