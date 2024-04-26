@@ -41,4 +41,5 @@ jobs:
             git pull
             npm ci --production --prefix server
             npm ci --production --prefix client
+            pm2 start server/server.js --name "globaltechno_app"
             pm2 restart all
