@@ -35,6 +35,6 @@ jobs:
             cd ~/globaltechno_app/
             rm -rf server/node_modules client/node_modules
             git pull
-            cd server && npm ci --production
-            cd ../client && npm ci --production
-            pm2 restart all
+            /home/ubuntu/.nvm/versions/node/v21.7.3/bin/npm ci --production --prefix server
+            /home/ubuntu/.nvm/versions/node/v21.7.3/bin/npm ci --production --prefix client
+            /home/ubuntu/.nvm/versions/node/v21.7.3/bin/pm2 restart all
