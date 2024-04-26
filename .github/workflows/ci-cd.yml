@@ -33,6 +33,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             . ~/.nvm/nvm.sh
+            nvm install 14
             nvm use 14
             cd ~/globaltechno_app/
             rm -rf server/node_modules client/node_modules
