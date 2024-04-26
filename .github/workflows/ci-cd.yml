@@ -33,6 +33,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd ~/globaltechno_app/
+            rm -rf server/node_modules client/node_modules
             git pull
             cd server && npm ci --production
             cd ../client && npm ci --production
