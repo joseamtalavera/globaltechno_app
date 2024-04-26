@@ -32,7 +32,8 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            . ~/.bashrc
+            . ~/.nvm/nvm.sh
+            nvm use 14
             cd ~/globaltechno_app/
             rm -rf server/node_modules client/node_modules
             git pull
