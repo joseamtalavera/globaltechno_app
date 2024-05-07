@@ -1,4 +1,4 @@
-// src/Register.js
+/* // src/Register.js
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
@@ -90,4 +90,103 @@ function Register() {
     );
 }
 
-export default Register;
+export default Register; */
+
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const defaultTheme = createTheme();
+
+export default function Register() {
+  const [email, setEmail] = React.useState('');
+  const [emails, setEmails] = React.useState([]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email })
+    });
+
+    if (response.ok) {
+      console.log('Email registered successfully');
+      setEmail('');
+    } else {
+      console.error('Error registering email');
+      const responseData = await response.json();
+      console.error('Response data:', responseData);
+    }
+  };
+
+  const showEmails = async () => {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/emails`);
+    const data = await response.json();
+    setEmails(data);
+  };
+
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }} />
+          <Typography component="h1" variant="h5">
+            Register your Email
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Register
+            </Button>
+            <Button
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={showEmails}
+            >
+              Show me the Data
+            </Button>
+            <Box sx={{ mt: 3, mb: 2 }}>
+              {emails.map(email => (
+                <p key={email.id}>{email.email}</p>
+              ))}
+            </Box>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
+  );
+}
