@@ -104,6 +104,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const defaultTheme = createTheme();
 
+/* eslint-env node */
+
 export default function Register() {
   const [email, setEmail] = React.useState('');
   const [emails, setEmails] = React.useState([]);
